@@ -1,0 +1,11 @@
+# Ignore seed and encrypted files
+data/
+encrypted_seed.txt
+
+# Logs
+cron/
+*.log
+
+# Python cache and bytecode files
+__pycache__/
+*.pyc
