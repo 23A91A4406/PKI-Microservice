@@ -33,16 +33,17 @@ COPY --from=builder /usr/local /usr/local
 
 # Copy application code
 COPY scripts /app/scripts
+COPY scripts/log_2fa_cron.py /app/scripts/log_2fa_cron.py
 COPY data/seed.txt /app/seed.txt
 COPY student_private.pem /app/scripts/
-COPY cron_jobs /etc/cron.d
+COPY cron/2fa-cron /etc/cron.d/2fa-cron
 COPY requirements.txt /app/requirements.txt
 
 # Set permissions for cron
-RUN chmod 0644 /etc/cron.d/my_cron
+RUN chmod 0644 /etc/cron.d/2fa-cron
 
 # Register cron job
-RUN crontab /etc/cron.d/my_cron
+RUN crontab /etc/cron.d/2fa-cron
 
 # Create volume mount points
 RUN mkdir -p /data /cron && chmod 755 /data /cron

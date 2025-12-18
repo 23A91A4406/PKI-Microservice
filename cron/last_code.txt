@@ -1,0 +1,115 @@
+Traceback (most recent call last):
+  File "/app/scripts/log_2fa_cron.py", line 19, in <module>
+    code = generate_totp_code(hex_seed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: generate_totp_code() takes 0 positional arguments but 1 was given
+Traceback (most recent call last):
+  File "/app/scripts/log_2fa_cron.py", line 19, in <module>
+    code = generate_totp_code(hex_seed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: generate_totp_code() takes 0 positional arguments but 1 was given
+Traceback (most recent call last):
+  File "/app/scripts/log_2fa_cron.py", line 19, in <module>
+    code = generate_totp_code(hex_seed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: generate_totp_code() takes 0 positional arguments but 1 was given
+Traceback (most recent call last):
+  File "/app/scripts/log_2fa_cron.py", line 19, in <module>
+    code = generate_totp_code(hex_seed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: generate_totp_code() takes 0 positional arguments but 1 was given
+Traceback (most recent call last):
+  File "/app/scripts/log_2fa_cron.py", line 19, in <module>
+    code = generate_totp_code(hex_seed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: generate_totp_code() takes 0 positional arguments but 1 was given
+Traceback (most recent call last):
+  File "/app/scripts/log_2fa_cron.py", line 19, in <module>
+    code = generate_totp_code(hex_seed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: generate_totp_code() takes 0 positional arguments but 1 was given
+Traceback (most recent call last):
+  File "/app/scripts/log_2fa_cron.py", line 19, in <module>
+    code = generate_totp_code(hex_seed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: generate_totp_code() takes 0 positional arguments but 1 was given
+Traceback (most recent call last):
+  File "/app/scripts/log_2fa_cron.py", line 19, in <module>
+    code = generate_totp_code(hex_seed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: generate_totp_code() takes 0 positional arguments but 1 was given
+Traceback (most recent call last):
+  File "/app/scripts/log_2fa_cron.py", line 19, in <module>
+    code = generate_totp_code(hex_seed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: generate_totp_code() takes 0 positional arguments but 1 was given
+2025-12-18 13:23:02 - 2FA Code: 592227
+2025-12-18 13:24:04 - 2FA Code: 100500
+2025-12-18 13:25:04 - 2FA Code: 104254
+2025-12-18 13:26:03 - 2FA Code: 525443
+2025-12-18 13:27:03 - 2FA Code: 910069
+2025-12-18 13:28:03 - 2FA Code: 039490
+2025-12-18 13:29:04 - 2FA Code: 742561
+2025-12-18 13:30:03 - 2FA Code: 826750
+2025-12-18 13:31:04 - 2FA Code: 757981
+2025-12-18 13:32:23 - 2FA Code: 388438
+2025-12-18 13:33:04 - 2FA Code: 262480
+✅ Logged TOTP: 262480 at 2025-12-18 13:33:04
+2025-12-18 13:34:04 - 2FA Code: 468333
+✅ Logged TOTP: 468333 at 2025-12-18 13:34:04
+2025-12-18 14:04:44 - 2FA Code: 087504
+✅ Logged TOTP: 087504 at 2025-12-18 14:04:44
+2025-12-18 14:05:05 - 2FA Code: 440001
+✅ Logged TOTP: 440001 at 2025-12-18 14:05:05
+2025-12-18 14:06:05 - 2FA Code: 669304
+✅ Logged TOTP: 669304 at 2025-12-18 14:06:05
+2025-12-18 14:07:03 - 2FA Code: 068667
+✅ Logged TOTP: 068667 at 2025-12-18 14:07:03
+2025-12-18 14:08:04 - 2FA Code: 406781
+✅ Logged TOTP: 406781 at 2025-12-18 14:08:04
+2025-12-18 14:09:05 - 2FA Code: 874070
+✅ Logged TOTP: 874070 at 2025-12-18 14:09:05
+2025-12-18 14:10:05 - 2FA Code: 277786
+✅ Logged TOTP: 277786 at 2025-12-18 14:10:05
+2025-12-18 14:11:05 - 2FA Code: 373000
+✅ Logged TOTP: 373000 at 2025-12-18 14:11:05
+2025-12-18 14:12:05 - 2FA Code: 931265
+✅ Logged TOTP: 931265 at 2025-12-18 14:12:05
+2025-12-18 14:13:04 - 2FA Code: 244655
+✅ Logged TOTP: 244655 at 2025-12-18 14:13:04
+2025-12-18 14:14:04 - 2FA Code: 226673
+✅ Logged TOTP: 226673 at 2025-12-18 14:14:04
+2025-12-18 14:15:05 - 2FA Code: 061489
+✅ Logged TOTP: 061489 at 2025-12-18 14:15:05
+2025-12-18 14:16:03 - 2FA Code: 558686
+✅ Logged TOTP: 558686 at 2025-12-18 14:16:03
+2025-12-18 14:17:05 - 2FA Code: 382753
+✅ Logged TOTP: 382753 at 2025-12-18 14:17:05
+2025-12-18 14:18:05 - 2FA Code: 605578
+✅ Logged TOTP: 605578 at 2025-12-18 14:18:05
+2025-12-18 14:19:04 - 2FA Code: 138842
+✅ Logged TOTP: 138842 at 2025-12-18 14:19:04
+2025-12-18 14:20:05 - 2FA Code: 787023
+✅ Logged TOTP: 787023 at 2025-12-18 14:20:05
+2025-12-18 14:21:05 - 2FA Code: 109926
+✅ Logged TOTP: 109926 at 2025-12-18 14:21:05
+2025-12-18 14:22:05 - 2FA Code: 984735
+✅ Logged TOTP: 984735 at 2025-12-18 14:22:05
+2025-12-18 14:23:05 - 2FA Code: 435361
+✅ Logged TOTP: 435361 at 2025-12-18 14:23:05
+2025-12-18 14:24:04 - 2FA Code: 791815
+✅ Logged TOTP: 791815 at 2025-12-18 14:24:04
+2025-12-18 14:25:03 - 2FA Code: 002094
+✅ Logged TOTP: 002094 at 2025-12-18 14:25:03
+2025-12-18 14:26:05 - 2FA Code: 939740
+✅ Logged TOTP: 939740 at 2025-12-18 14:26:05
+2025-12-18 14:27:05 - 2FA Code: 179060
+✅ Logged TOTP: 179060 at 2025-12-18 14:27:05
+2025-12-18 14:28:05 - 2FA Code: 184185
+✅ Logged TOTP: 184185 at 2025-12-18 14:28:05
+2025-12-18 14:29:04 - 2FA Code: 806734
+✅ Logged TOTP: 806734 at 2025-12-18 14:29:04
+2025-12-18 14:30:05 - 2FA Code: 228381
+✅ Logged TOTP: 228381 at 2025-12-18 14:30:05
+2025-12-18 14:31:05 - 2FA Code: 120890
+✅ Logged TOTP: 120890 at 2025-12-18 14:31:05
