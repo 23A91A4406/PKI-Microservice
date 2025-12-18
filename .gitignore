@@ -1,5 +1,6 @@
 # Encrypted seed (sensitive)
 encrypted_seed.txt
+data/
 
 # Python cache
 __pycache__/
