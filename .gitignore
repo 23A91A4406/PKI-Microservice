@@ -1,11 +1,13 @@
-# Ignore seed and encrypted files
-data/
+# Encrypted seed (sensitive)
 encrypted_seed.txt
 
-# Logs
-cron/
-*.log
-
-# Python cache and bytecode files
+# Python cache
 __pycache__/
 *.pyc
+
+# Environment files
+.env
+
+# IDE files
+.vscode/
+.idea/

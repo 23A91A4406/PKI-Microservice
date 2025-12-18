@@ -12,23 +12,22 @@ def load_seed_bytes():
     Load hex seed from /data/seed.txt and convert to bytes
     """
     if not os.path.exists(SEED_FILE):
-        raise FileNotFoundError("❌ seed.txt not found in /data folder")
+        raise FileNotFoundError("seed.txt not found in /data")
 
     with open(SEED_FILE, "r") as f:
         hex_seed = f.read().strip()
 
     if len(hex_seed) != 64:
-        raise ValueError("❌ Seed must be 64 hex characters")
+        raise ValueError("Seed must be 64 hex characters")
 
-    # Convert hex string → bytes
     return bytes.fromhex(hex_seed)
 
 
-def generate_totp_code(hex_seed):
+def generate_totp_code():
     """
-    Generate a 6-digit TOTP code from a hex seed
+    Generate current 6-digit TOTP code
     """
-    key = bytes.fromhex(hex_seed)  # Convert hex_seed string to bytes
+    key = load_seed_bytes()
     timestep = int(time.time()) // 30
 
     msg = struct.pack(">Q", timestep)
@@ -41,17 +40,5 @@ def generate_totp_code(hex_seed):
     return f"{code:06d}"
 
 
-def verify_totp_code(hex_seed, input_code):
-    """
-    Verify if the input_code matches the current TOTP
-    """
-    return generate_totp_code(hex_seed) == input_code
-
-
-# Manual test
-if __name__ == "__main__":
-    # Load seed from file
-    hex_seed = load_seed_bytes().hex()  # get hex string
-    code = generate_totp_code(hex_seed)
-    remaining = 30 - (int(time.time()) % 30)
-    print(f"Current TOTP code: {code}, valid for {remaining} seconds")
+def verify_totp_code(input_code: str):
+    return generate_totp_code() == input_code
