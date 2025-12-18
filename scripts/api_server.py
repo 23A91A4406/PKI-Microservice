@@ -1,22 +1,22 @@
 import sys
 import os
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import base64
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives import hashes
 
-# Add scripts folder to Python path so we can import totp.py
+# Add current scripts folder to Python path so totp.py can be imported
 sys.path.append(os.path.dirname(__file__))
 
 from totp import generate_totp_code, verify_totp_code  # your totp functions
 
 app = FastAPI()
 
-# Path to seed file
-SEED_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "seed.txt")
-PRIVATE_KEY_PATH = os.path.join(os.path.dirname(__file__), "..", "student_private.pem")
+# Paths (inside container, relative to scripts/)
+SEED_FILE_PATH = "/data/seed.txt"
+PRIVATE_KEY_PATH = os.path.join(os.path.dirname(__file__), "student_private.pem")
 
 
 # Pydantic models
@@ -55,7 +55,6 @@ def decrypt_seed_endpoint(request: EncryptedSeedRequest):
             raise ValueError("Invalid seed format")
 
         # Save to seed.txt
-        os.makedirs(os.path.dirname(SEED_FILE_PATH), exist_ok=True)
         with open(SEED_FILE_PATH, "w") as f:
             f.write(decrypted_seed)
 
@@ -70,12 +69,12 @@ def decrypt_seed_endpoint(request: EncryptedSeedRequest):
 def generate_2fa_endpoint():
     try:
         if not os.path.exists(SEED_FILE_PATH):
-            raise ValueError("Seed not decrypted yet")
+            raise HTTPException(status_code=500, detail="Seed not decrypted yet")
 
         with open(SEED_FILE_PATH, "r") as f:
             hex_seed = f.read().strip()
 
-        code = generate_totp_code(hex_seed)
+        code = generate_totp_code()
 
         # Calculate remaining seconds
         import time
@@ -100,7 +99,7 @@ def verify_2fa_endpoint(request: VerifyCodeRequest):
         with open(SEED_FILE_PATH, "r") as f:
             hex_seed = f.read().strip()
 
-        valid = verify_totp_code(hex_seed, request.code)
+        valid = verify_totp_code(request.code)
 
         return {"valid": valid}
 
@@ -108,3 +107,9 @@ def verify_2fa_endpoint(request: VerifyCodeRequest):
         raise he
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# Add this to keep FastAPI running when container starts
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8080)

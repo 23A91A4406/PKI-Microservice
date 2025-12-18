@@ -1,78 +1,49 @@
-import base64
-import pyotp
-import re
+import time
+import hmac
+import hashlib
+import struct
+import os
+
+SEED_FILE = "/data/seed.txt"
 
 
-def generate_totp_code(hex_seed: str) -> str:
+def load_seed_bytes():
     """
-    Generate current TOTP code from hex seed
+    Load hex seed from /data/seed.txt and convert to bytes
     """
+    if not os.path.exists(SEED_FILE):
+        raise FileNotFoundError("❌ seed.txt not found in /data folder")
 
-    # 1️⃣ Validate hex seed
-    if len(hex_seed) != 64 or not re.fullmatch(r"[0-9a-fA-F]{64}", hex_seed):
-        raise ValueError("Invalid hex seed format")
+    with open(SEED_FILE, "r") as f:
+        hex_seed = f.read().strip()
 
-    # 2️⃣ Convert hex → bytes
-    seed_bytes = bytes.fromhex(hex_seed)
+    if len(hex_seed) != 64:
+        raise ValueError("❌ Seed must be 64 hex characters")
 
-    # 3️⃣ Convert bytes → base32
-    base32_seed = base64.b32encode(seed_bytes).decode("utf-8")
-
-    # 4️⃣ Create TOTP object
-    totp = pyotp.TOTP(
-        base32_seed,
-        digits=6,
-        interval=30,
-        digest="sha1"
-    )
-
-    # 5️⃣ Generate current TOTP
-    return totp.now()
+    # 🔥 IMPORTANT FIX: hex string → bytes
+    return bytes.fromhex(hex_seed)
 
 
-def verify_totp_code(hex_seed: str, code: str, valid_window: int = 1) -> bool:
-    """
-    Verify TOTP code with time window tolerance
-    """
+def generate_totp_code():
+    key = load_seed_bytes()   # BYTES ✔
+    timestep = int(time.time()) // 30
 
-    # 1️⃣ Validate hex seed
-    if len(hex_seed) != 64 or not re.fullmatch(r"[0-9a-fA-F]{64}", hex_seed):
-        raise ValueError("Invalid hex seed format")
+    msg = struct.pack(">Q", timestep)
+    hmac_hash = hmac.new(key, msg, hashlib.sha1).digest()
 
-    # 2️⃣ Convert hex → bytes → base32
-    seed_bytes = bytes.fromhex(hex_seed)
-    base32_seed = base64.b32encode(seed_bytes).decode("utf-8")
+    offset = hmac_hash[-1] & 0x0F
+    binary = struct.unpack(">I", hmac_hash[offset:offset + 4])[0] & 0x7fffffff
+    code = binary % 1_000_000
 
-    # 3️⃣ Create TOTP object
-    totp = pyotp.TOTP(
-        base32_seed,
-        digits=6,
-        interval=30,
-        digest="sha1"
-    )
-
-    # 4️⃣ Verify code (± valid_window periods)
-    return totp.verify(code, valid_window=valid_window)
+    return f"{code:06d}"
 
 
-# -------------------------------------------------
-# OPTIONAL: Local test (you can delete later)
-# -------------------------------------------------
-from pathlib import Path
+def verify_totp_code(input_code):
+    return generate_totp_code() == input_code
 
+
+# Manual test
 if __name__ == "__main__":
-    # Bulletproof base directory
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    SEED_PATH = BASE_DIR / "seed.txt"
-
-    if not SEED_PATH.exists():
-        raise FileNotFoundError("❌ seed.txt not found in project root")
-
-    seed = SEED_PATH.read_text().strip()
-
-    otp = generate_totp_code(seed)
-    print("Generated TOTP:", otp)
-
-    is_valid = verify_totp_code(seed, otp)
-    print("Verification result:", is_valid)
-
+    code = generate_totp_code()
+    remaining = 30 - (int(time.time()) % 30)
+    print(f"Current TOTP code: {code}, valid for {remaining} seconds")
